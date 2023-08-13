@@ -8,5 +8,6 @@ namespace R5T.S0102
 	/// </summary>
 	public static class Documentation
 	{
+        
 	}
 }
