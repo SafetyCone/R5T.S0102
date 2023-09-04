@@ -7,8 +7,8 @@ namespace R5T.S0102
 {
     [ValuesMarker]
     public partial interface IFilePaths : IValuesMarker,
-        Z0015.IFilePaths,
-        Z0039.IFilePaths
+        Z0039.IFilePaths,
+        Z0063.IFilePaths
     {
         
     }
