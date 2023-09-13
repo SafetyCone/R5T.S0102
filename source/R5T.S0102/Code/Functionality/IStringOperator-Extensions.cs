@@ -64,6 +64,20 @@ namespace R5T.S0102.N002.Extensions
             return output;
         }
 
+        /// <inheritdoc cref="INamespacedTypedName"/>
+        public INamespacedTypedName ToNamespacedTypedName(string value)
+        {
+            var output = new NamespacedTypedName(value);
+            return output;
+        }
+
+        /// <inheritdoc cref="INamespacedTypedParameterTypedName"/>
+        public INamespacedTypedParameterTypedName ToNamespacedTypedParameterTypedName(string value)
+        {
+            var output = new NamespacedTypedParameterTypedName(value);
+            return output;
+        }
+
         /// <inheritdoc cref="INamespacedTypeName"/>
         public INamespacedTypeName ToNamespacedTypeName(string value)
         {

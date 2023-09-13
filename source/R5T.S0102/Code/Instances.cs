@@ -12,7 +12,7 @@ namespace R5T.S0102
         public static IDocumentationFileOperator DocumentationFileOperator => S0102.DocumentationFileOperator.Instance;
         public static T0215.Z000.IDotnetPackNames DotnetPackNames => T0215.Z000.DotnetPackNames.Instance;
         public static T0215.Z000.IDotnetPackNameSets DotnetPackNameSets => T0215.Z000.DotnetPackNameSets.Instance;
-        public static F0138.IDotnetPackPathOperator DotnetPackPathOperator => F0138.DotnetPackPathOperator.Instance;
+        public static L0053.IEnumerableOperator EnumerableOperator => L0053.EnumerableOperator.Instance;
         public static F0000.IFileOperator FileOperator => F0000.FileOperator.Instance;
         public static new IFilePaths FilePaths => S0102.FilePaths.Instance;
         public static F0082.IFileSystemOperator FileSystemOperator => F0082.FileSystemOperator.Instance;
@@ -25,22 +25,26 @@ namespace R5T.S0102
         public static F0000.IIntegerOperator IntegerOperator => F0000.IntegerOperator.Instance;
         public static T0162.Z000.IKindMarkers KindMarkers => T0162.Z000.KindMarkers.Instance;
         public static T0162.Z000.IKindMarkerSets KindMarkerSets => T0162.Z000.KindMarkerSets.Instance;
+        public static L0053.IMethodInfoOperator MethodInfoOperator => L0053.MethodInfoOperator.Instance;
         public static T0212.F000.IMemberElementOperator MemberElementOperator => T0212.F000.MemberElementOperator.Instance;
+        public static IMemberInfoOperator MemberInfoOperator => S0102.MemberInfoOperator.Instance;
         public static Z0030.Raw.IMethodIdentityNames MethodIdentityNames_Raw => Z0030.Raw.MethodIdentityNames.Instance;
         public static F0000.INamespacedTypeNameOperator NamespacedTypeNameOperator => F0000.NamespacedTypeNameOperator.Instance;
         public static F0000.INullOperator NullOperator => F0000.NullOperator.Instance;
         public static F0115.IOperations Operations_F0115 => F0115.Operations.Instance;
+        public static IParameterInfoOperator ParameterInfoOperator => S0102.ParameterInfoOperator.Instance;
         public static Z0030.IPathologicalIdentityNames PathologicalIdentityNames => Z0030.PathologicalIdentityNames.Instance;
         public static Z0030.IPathologicalIdentityNameSets PathologicalIdentityNameSets => Z0030.PathologicalIdentityNameSets.Instance;
-        public static F0018.IReflectionOperator ReflectionOperator => F0018.ReflectionOperator.Instance;
+        public static L0053.IPropertyInfoOperator PropertyInfoOperator => L0053.PropertyInfoOperator.Instance;
+        public static L0057.IReflectionOperator ReflectionOperator => L0057.ReflectionOperator.Instance;
         public static Z0022.IRepositoriesDirectoryPaths RepositoriesDirectoryPaths => Z0022.RepositoriesDirectoryPaths.Instance;
         public static F0000.IStringOperator StringOperator => F0000.StringOperator.Instance;
         public static N002.Extensions.IStringOperator StringOperator_N002_Extensions => N002.Extensions.StringOperator.Instance;
-        public static F0000.IStrings Strings => F0000.Strings.Instance;
         public static F0000.ISwitchOperator SwitchOperator => F0000.SwitchOperator.Instance;
         public static Z0057.ITargetFrameworkMonikers TargetFrameworkMonikers => Z0057.TargetFrameworkMonikers.Instance;
         public static F0124.ITextOperator TextOperator => F0124.TextOperator.Instance;
         public static T0162.Z000.ITokenSeparators TokenSeparators => T0162.Z000.TokenSeparators.Instance;
-        public static F0000.ITypeOperator TypeOperator => F0000.TypeOperator.Instance;
+        public static Platform.ITypeNameAffixes TypeNameAffixes => Platform.TypeNameAffixes.Instance;
+        public static ITypeOperator TypeOperator => S0102.TypeOperator.Instance;
     }
 }

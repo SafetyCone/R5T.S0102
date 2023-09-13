@@ -8,6 +8,7 @@ using R5T.S0102.N002.Extensions;
 
 using IExternalIdentityName = R5T.T0162.IIdentityName;
 using StructuralIdentityName = R5T.S0102.N001.IdentityName;
+using R5T.T0161;
 
 
 namespace R5T.S0102.N002
@@ -99,6 +100,63 @@ namespace R5T.S0102.N002
         public StructuralIdentityName ToStructuralIdentityName(IIdentityName identityName)
         {
             var output = Instances.IdentityNameOperator_N001.Get_StructuralIdentityName(identityName);
+            return output;
+        }
+
+        public IIdentityName ToKindMarkedIdentityName(
+            INamespacedTypeNamed namespacedTypedName,
+            IKindMarker kindMarker)
+        {
+            var output = $"{kindMarker}{Instances.TokenSeparators.KindMarkerSeparator}{namespacedTypedName}"
+                .ToInternalIdentityName();
+
+            return output;
+        }
+
+        public IIdentityName ToEventIdentityname(INamespacedTypedName namespacedTypedName)
+        {
+            var output = this.ToKindMarkedIdentityName(
+                namespacedTypedName,
+                Instances.KindMarkers.Event);
+
+            return output;
+        }
+
+        public IIdentityName ToFieldIdentityname(INamespacedTypedName namespacedTypedName)
+        {
+            var output = this.ToKindMarkedIdentityName(
+                namespacedTypedName,
+                Instances.KindMarkers.Field);
+
+            return output;
+        }
+
+        public IIdentityName ToMethodIdentityname(INamespacedTypedParameterTypedName namespacedTypedName)
+        {
+            // Need to account for parameter types.
+
+            var output = this.ToKindMarkedIdentityName(
+                namespacedTypedName,
+                Instances.KindMarkers.Method);
+
+            return output;
+        }
+
+        public IIdentityName ToPropertyIdentityname(INamespacedTypedName namespacedTypedName)
+        {
+            var output = this.ToKindMarkedIdentityName(
+                namespacedTypedName,
+                Instances.KindMarkers.Property);
+
+            return output;
+        }
+
+        public IIdentityName ToTypeIdentityName(INamespacedTypeName namespacedTypeName)
+        {
+            var output = this.ToKindMarkedIdentityName(
+                namespacedTypeName,
+                Instances.KindMarkers.Type);
+
             return output;
         }
 

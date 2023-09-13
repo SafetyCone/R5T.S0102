@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 
 using R5T.F0000;
@@ -18,9 +19,38 @@ namespace R5T.S0102.Internal
         private static T0162.F001.IIdentityNameOperator Base => T0162.F001.IdentityNameOperator.Instance;
 
 
+        /// <summary>
+        /// Append does not insert a <see cref="T0162.Z000.ITokenSeparators.NamespaceTokenSeparator"/>.
+        /// </summary>
+        public string Append(string part1, string part2)
+        {
+            var output = $"{part1}{part2}";
+            return output;
+        }
+
+        public string Append_MethodTypeParametersCount(
+            string methodName,
+            MethodInfo methodInfo)
+        {
+            // Add the method type parameter count.
+            var typeParametersCount = Instances.MethodInfoOperator.Get_TypeParameterCount(methodInfo);
+
+            methodName += $"{Instances.TokenSeparators.MethodTypeParameterCountSeparator}{typeParametersCount}";
+            return methodName;
+        }
+
+        /// <summary>
+        /// Combine inserts a <see cref="T0162.Z000.ITokenSeparators.NamespaceTokenSeparator"/>.
+        /// </summary>
+        public string Combine(string part1, string part2)
+        {
+            var output = $"{part1}{Instances.TokenSeparators.NamespaceTokenSeparator}{part2}";
+            return output;
+        }
+
         public string[] Get_Arguments(string argumentsList)
         {
-            if(Instances.StringOperator.IsNullOrEmpty(argumentsList))
+            if(Instances.StringOperator.Is_NullOrEmpty(argumentsList))
             {
                 return Instances.ArrayOperator.New_Empty<string>();
             }

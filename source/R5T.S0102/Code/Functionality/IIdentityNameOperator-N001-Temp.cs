@@ -37,10 +37,10 @@ namespace R5T.S0102.N001
                 ;
 
             // Treat the namespaced type name as the namespace.
-            var namespacedTypeName = Instances.NamespacedTypeNameOperator.GetNamespaceName(namespacedTypedMethodName);
+            var namespacedTypeName = Instances.NamespacedTypeNameOperator.Get_NamespaceName(namespacedTypedMethodName);
 
             // Treat the property name as the type name.
-            var propertyName = Instances.NamespacedTypeNameOperator.GetTypeName(namespacedTypedMethodName);
+            var propertyName = Instances.NamespacedTypeNameOperator.Get_TypeName(namespacedTypedMethodName);
 
             var typeIdentityName = this.Get_TypeIdentityName(namespacedTypeName);
 
@@ -118,10 +118,10 @@ namespace R5T.S0102.N001
                 ;
 
             // Treat the namespaced type name as the namespace.
-            var namespacedTypeName = Instances.NamespacedTypeNameOperator.GetNamespaceName(namespacedTypedMethodName);
+            var namespacedTypeName = Instances.NamespacedTypeNameOperator.Get_NamespaceName(namespacedTypedMethodName);
 
             // Treat the method name as the type name.
-            var methodName = Instances.NamespacedTypeNameOperator.GetTypeName(namespacedTypedMethodName);
+            var methodName = Instances.NamespacedTypeNameOperator.Get_TypeName(namespacedTypedMethodName);
 
             var isGeneric = Internal.Is_GenericMethodName(methodName);
 
@@ -283,10 +283,10 @@ namespace R5T.S0102.N001
             // For types, the namespaced type name is the whole identity name (since nested types will include the parent type name in their namespace name).
             var namespacedTypeName = typeIdentityNameValue;
 
-            var namespaceName = Instances.NamespacedTypeNameOperator.GetNamespaceName(namespacedTypeName)
+            var namespaceName = Instances.NamespacedTypeNameOperator.Get_NamespaceName(namespacedTypeName)
                 .ToNamespaceName();
 
-            var typeName = Instances.NamespacedTypeNameOperator.GetTypeName(namespacedTypeName)
+            var typeName = Instances.NamespacedTypeNameOperator.Get_TypeName(namespacedTypeName)
                 .ToTypeName();
 
             // Is type name generic?
@@ -337,7 +337,7 @@ namespace R5T.S0102.N001
 
         public string Get_NamespacedTypeNameValue(TypeIdentityName typeIdentityName)
         {
-            var output = Instances.NamespacedTypeNameOperator.GetNamespacedTypeName(
+            var output = Instances.NamespacedTypeNameOperator.Get_NamespacedTypeName(
                 typeIdentityName.NamespaceName.Value,
                 typeIdentityName.TypeName.Value);
 
@@ -366,10 +366,10 @@ namespace R5T.S0102.N001
             var namespacedTypedFieldName = identityNameValue;
 
             // Treat the namespaced type name as the namespace name of the event.
-            var namespacedTypeName = Instances.NamespacedTypeNameOperator.GetNamespaceName(namespacedTypedFieldName);
+            var namespacedTypeName = Instances.NamespacedTypeNameOperator.Get_NamespaceName(namespacedTypedFieldName);
 
             // Treat the type name as the event name.
-            var fieldName = Instances.NamespacedTypeNameOperator.GetTypeName(namespacedTypedFieldName);
+            var fieldName = Instances.NamespacedTypeNameOperator.Get_TypeName(namespacedTypedFieldName);
 
             var typeIdentityName = this.Get_TypeIdentityName(namespacedTypeName);
 
@@ -385,7 +385,7 @@ namespace R5T.S0102.N001
                 typeIdentityName);
 
             // Treat the type identity name as the namespace name.
-            var eventIdentityNameValue = Instances.NamespacedTypeNameOperator.GetNamespacedTypeName(
+            var eventIdentityNameValue = Instances.NamespacedTypeNameOperator.Get_NamespacedTypeName(
                 namespacedTypeName,
                 fieldName);
 

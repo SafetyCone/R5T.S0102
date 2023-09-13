@@ -67,6 +67,18 @@ namespace R5T.S0102.N002.Extensions
             return Instances.StringOperator_N002_Extensions.ToNamespacedTypeName(value);
         }
 
+        /// <inheritdoc cref="IStringOperator.ToNamespacedTypedName(string)"/>
+        public static INamespacedTypedName ToNamespacedTypedName(this string value)
+        {
+            return Instances.StringOperator_N002_Extensions.ToNamespacedTypedName(value);
+        }
+
+        /// <inheritdoc cref="IStringOperator.ToNamespacedTypedParameterTypedName(string)"/>
+        public static INamespacedTypedParameterTypedName ToNamespacedTypedParameterTypedName(this string value)
+        {
+            return Instances.StringOperator_N002_Extensions.ToNamespacedTypedParameterTypedName(value);
+        }
+
         /// <inheritdoc cref="IStringOperator.ToPropertyName(string)"/>
         public static IPropertyName ToPropertyName(this string value)
         {

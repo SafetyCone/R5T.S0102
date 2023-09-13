@@ -140,13 +140,13 @@ namespace R5T.S0102
                             .Select(x => $"{x.Item1.Value}:\n\t{x.Item2.Value}")
                             ;
 
-                        Instances.FileOperator.WriteLines_Synchronous(
+                        Instances.FileOperator.Write_Lines_Synchronous(
                             outputFilePath.Value,
                             lines);
                     }
                     else
                     {
-                        Instances.FileOperator.WriteText_Synchronous(
+                        Instances.FileOperator.Write_Lines_Synchronous(
                             outputFilePath.Value,
                             "No unmatched identity names.");
                     }
@@ -235,7 +235,7 @@ namespace R5T.S0102
                 .OrderAlphabetically()
                 ;
 
-            Instances.FileOperator.WriteLines_Synchronous(
+            Instances.FileOperator.Write_Lines_Synchronous(
                 outputFilePath.Value,
                 lines);
 
@@ -308,7 +308,7 @@ namespace R5T.S0102
                 .OrderAlphabetically()
                 ;
 
-            Instances.FileOperator.WriteLines_Synchronous(
+            Instances.FileOperator.Write_Lines_Synchronous(
                 outputFilePath.Value,
                 lines);
 
