@@ -40,7 +40,15 @@ namespace R5T.S0102.N002.Extensions
         {
             return Instances.StringOperator_N002_Extensions.ToIdentityName(value);
         }
-        
+
+        /// <summary>
+        /// Helps when <see cref="ToIdentityName(string)"/> is ambiguous in a certain context.
+        /// </summary>
+        public static T0162.IIdentityName ToExternalIdentityName(this string value)
+        {
+            return Instances.StringOperator_T0162_Extensions.ToIdentityName(value);
+        }
+
         /// <summary>
         /// Helps when <see cref="ToIdentityName(string)"/> is ambiguous in a certain context.
         /// </summary>

@@ -52,7 +52,7 @@ namespace R5T.S0102.Internal
         {
             if(Instances.StringOperator.Is_NullOrEmpty(argumentsList))
             {
-                return Instances.ArrayOperator.New_Empty<string>();
+                return Instances.ArrayOperator.Empty<string>();
             }
 
             // The difficulty is that the argument separator ',' (comma) is used recursively to separate arguments within the arguments list, and type arguments within the generic types of arguments.

@@ -5,12 +5,13 @@ using System.Threading.Tasks;
 
 using R5T.T0132;
 using R5T.T0162;
-using R5T.T0162.Extensions;
 using R5T.T0172;
 using R5T.T0172.Extensions;
 using R5T.T0179.Extensions;
 using R5T.T0215;
 using R5T.T0218;
+
+using R5T.S0102.N002.Extensions;
 
 
 namespace R5T.S0102
@@ -18,6 +19,232 @@ namespace R5T.S0102
     [FunctionalityMarker]
     public partial interface IScripts : IFunctionalityMarker
     {
+        public void GenerateAndCheck_DotnetPackMemberIdentityStrings_FromSignatures()
+        {
+            /// Inputs.
+            bool showSuccesses = false;
+
+            var dotnetPackName = Instances.DotnetPackNames.Microsoft_NETCore_App_Ref;
+            var targetFramework = Instances.TargetFrameworkMonikers.NET_6;
+            var outputFilePath = Instances.FilePaths.OutputTextFilePath;
+
+            
+            /// Run.
+            var (humanOutputTextFilePath, logFilePath) = Instances.TextOutputOperator.In_TextOutputContext(
+                nameof(GenerateAndCheck_DotnetPackMemberIdentityStrings_FromSignatures),
+                textOutput =>
+                {
+                    var results = new Dictionary<IAssemblyFilePath, N001.AssemblyIdentityStringsGenerationResult>();
+
+                    Instances.DotnetPackPathOperator.Foreach_MemberInfo(
+                        dotnetPackName,
+                        targetFramework,
+                        textOutput,
+                        (memberInfo, assembly, assemblyFilePath, documentationFilePath) =>
+                        {
+                            //// For debugging - Select based on analysis of MemberInfo.
+                            //if (assemblyFilePath.Value != @"C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\6.0.22\ref\net6.0\System.Threading.Channels.dll")
+                            //{
+                            //    return;
+                            //}
+
+                            // Generate the identity string.
+                            // Note: this should always work, as it was tested in R5T.S0102.
+                            var referenceIdentityString = Instances.MemberInfoOperator.Get_IdentityString(memberInfo);
+
+                            Console.WriteLine(referenceIdentityString);
+
+                            //System.Collections.Immutable.ImmutableArray.ToImmutableArray
+
+                            //// For debugging.
+                            //if (referenceIdentityString.Value != "M:System.Threading.Channels.Channel`2.op_Implicit(System.Threading.Channels.Channel{`0,`1})~System.Threading.Channels.ChannelReader{`1}")
+                            //{
+                            //    return;
+                            //}
+
+                            var result = Instances.DictionaryOperator.Acquire_Value(
+                                results,
+                                assemblyFilePath,
+                                () => new N001.AssemblyIdentityStringsGenerationResult(assemblyFilePath));
+
+                            // Try working with signatures.
+                            try
+                            {
+                                var signature = Instances.SignatureOperator.Get_Signature(memberInfo);
+
+                                var identityString = Instances.SignatureOperator.Get_IdentityString(signature);
+
+                                var pair = new N001.IdentityStringPair
+                                {
+                                    FromStructure = identityString,
+                                    Reference = referenceIdentityString
+                                };
+
+                                var areEqual = identityString.Equals(referenceIdentityString);
+                                if(areEqual)
+                                {
+                                    result.Successes.Add(pair);
+                                }
+                                else
+                                {
+                                    result.Failures.Add(pair);
+                                }
+                            }
+                            catch (Exception)
+                            {
+                                result.Exceptions.Add(referenceIdentityString);
+                            }
+                        });
+
+                    Instances.Operator.Write_ResultsToOutput(
+                        outputFilePath,
+                        results,
+                        showSuccesses);
+                });
+
+            Instances.NotepadPlusPlusOperator.Open(
+                outputFilePath);
+        }
+
+        public async Task GenerateAndCheck_DotnetPackMemberIdentityStrings()
+        {
+            /// Inputs.
+            bool showGeneratedButNotInDocumentation = false;
+
+            var dotnetPackName = Instances.DotnetPackNames.Microsoft_NETCore_App_Ref;
+            var targetFramework = Instances.TargetFrameworkMonikers.NET_6;
+            var outputFilePath = Instances.FilePaths.OutputTextFilePath;
+
+            /// Run.
+            var (humanOutputTextFilePath, logFilePath) = await Instances.TextOutputOperator.In_TextOutputContext(
+                nameof(GenerateAndCheck_DotnetPackMemberIdentityStrings),
+                async textOutput =>
+                {
+                    // Foreach pair of assembly and documentation files, create all the member identity names contained in the assembly, match them against those in the hash.
+
+                    var results = new Dictionary<IAssemblyFilePath, AssemblyIdentityStringsGenerationResult>();
+
+                    await Instances.DotnetPackPathOperator.Foreach_DotnetPackAssemblyFile(
+                        dotnetPackName,
+                        targetFramework,
+                        async (assemblyFilePath, documentationFilePath) =>
+                        {
+                            //// For debugging.
+                            //if (assemblyFilePath.Value != @"C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\6.0.22\ref\net6.0\System.Runtime.dll")
+                            //{
+                            //    return;
+                            //}
+
+                            textOutput.WriteInformation($"{assemblyFilePath}\n\tProcessing...");
+
+                            // Load the documentation file, and get all identity names in the documention file.
+                            var documentationFileIdentityNames = await Instances.DocumentationFileOperator.Get_IdentityNames(documentationFilePath);
+
+                            var documentationFileIdentityNamesHash = documentationFileIdentityNames.ToHashSet();
+
+                            var result = new AssemblyIdentityStringsGenerationResult(assemblyFilePath);
+
+                            // Load the assembly,
+                            Instances.ReflectionOperator.In_AssemblyContext(
+                                assemblyFilePath.Value,
+                                assembly =>
+                                {
+                                    // Foreach member element in the assembly (event, field, method, namespace, property, type), get the identity name.
+                                    Instances.AssemblyOperator.Foreach_Member(
+                                        assembly,
+                                        memberInfo =>
+                                        {
+                                            // Create the identity name from the member info.
+                                            var identityName = Instances.MemberInfoOperator.Get_IdentityString(memberInfo)
+                                                .Value.ToInternalIdentityName();
+
+                                            //// For debugging.
+                                            //if (identityName.Value != "M:System.IO.Enumeration.FileSystemEnumerable`1.#ctor(System.String,System.IO.Enumeration.FileSystemEnumerable}.FindTransform,System.IO.EnumerationOptions)")
+                                            //{
+                                            //    return;
+                                            //}
+
+                                            // Match each identity named member element to something in the documention file.
+                                            var identityNameFound = documentationFileIdentityNamesHash.Contains(identityName);
+                                            if (identityNameFound)
+                                            {
+                                                // If a match is found, remove the identity name from the documentation file's hash.
+                                                documentationFileIdentityNamesHash.Remove(identityName);
+
+                                                // Then add the identity name to the found hash.
+                                                result.Found.Add(identityName);
+                                            }
+                                            else
+                                            {
+                                                // If no match is found, add the identity name to the not found hash.
+                                                result.NotFound.Add(identityName);
+                                            }
+                                        });
+
+                                    // If any documentation identity names are not removed, add them to the output for the assembly.
+                                    result.UnmatchedDocumentionFileIdentityNames.AddRange(documentationFileIdentityNamesHash);
+                                });
+
+                            results.Add(result.AssemblyFilePath, result);
+                        });
+
+                    // Output results.
+                    var resultsToOutput = results
+                        // Drop the dictionary now.
+                        .Select(pair => pair.Value)
+                        // Only show results from assemblies where there are identity names in the documentation that were not generated.
+                        .Where(result => result.UnmatchedDocumentionFileIdentityNames.Any() || showGeneratedButNotInDocumentation)
+                        .Now();
+
+                    var anyResultsToOutput = resultsToOutput.Any();
+
+                    var lines = Instances.EnumerableOperator.From("Matched and unmatched identity names between .NET pack assemblies and their documentation files.")
+                        .AppendIf(anyResultsToOutput, resultsToOutput
+                            .SelectMany(result =>
+                            {
+                                var output = Instances.EnumerableOperator.From($"{result.AssemblyFilePath}:")
+                                    .Append(Instances.EnumerableOperator.From("Unmatched (in documentation, but not generated):")
+                                        .AppendIf(result.UnmatchedDocumentionFileIdentityNames.Any(), result.UnmatchedDocumentionFileIdentityNames
+                                            .Select(x => $"\t{x}")
+                                        )
+                                        .AppendIf(!result.UnmatchedDocumentionFileIdentityNames.Any(),
+                                            Instances.EnumerableOperator.From("<None>")
+                                        )
+                                    )
+                                    .Append(Instances.EnumerableOperator.From("Not found (generated, but not in documentation):")
+                                        .AppendIf(result.NotFound.Any(), result.NotFound
+                                            .Select(x => $"\t{x}")
+                                        )
+                                        .AppendIf(!result.NotFound.Any(),
+                                            Instances.EnumerableOperator.From("<None>")
+                                        )
+                                    )
+                                    .Append(Instances.EnumerableOperator.From("Found:")
+                                        .AppendIf(result.Found.Any(), result.Found
+                                            .Select(x => $"\t{x}")
+                                        )
+                                        .AppendIf(!result.Found.Any(),
+                                            Instances.EnumerableOperator.From("<None>")
+                                        )
+                                    )
+                                    ;
+
+                                return output;
+                            })
+                        )
+                        .AppendIf(!anyResultsToOutput,
+                            Instances.EnumerableOperator.From("< None >\nNo unmatched identity names between .NET pack assemblies and their documentation files.")
+                        );
+
+                    Instances.FileOperator.Write_Lines_Synchronous(
+                        outputFilePath.Value,
+                        lines);
+                });
+
+            Instances.NotepadPlusPlusOperator.Open(
+                outputFilePath);
+        }
+
         /// <summary>
         /// For a big mess of identity strings, parse identity strings to a structured type instance, the serialize the instance.
         /// Compare the output to ensure all identity strings can be handled.
@@ -129,7 +356,7 @@ namespace R5T.S0102
                         }
                         catch
                         {
-                            unmatchedIdentityNames.Add((identityName, "<error>".ToIdentityName()));
+                            unmatchedIdentityNames.Add((identityName, "<error>".ToExternalIdentityName()));
                         }
                     }
 

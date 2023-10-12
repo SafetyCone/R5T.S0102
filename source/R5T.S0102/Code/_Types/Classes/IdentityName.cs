@@ -1,5 +1,6 @@
 using System;
 
+using R5T.T0142;
 using R5T.T0162;
 
 
@@ -11,6 +12,7 @@ namespace R5T.S0102.N001
     /// Similar types:
     ///     * R5T.T0162.IIdentityName - String-based strong-type.
     /// </summary>
+    [DataTypeMarker]
     public abstract class IdentityName :
         // Identity names have a kind marker, but that's it!
         IWithKindMarker
