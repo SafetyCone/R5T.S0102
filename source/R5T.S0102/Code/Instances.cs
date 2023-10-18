@@ -15,13 +15,14 @@ namespace R5T.S0102
         public static T0215.Z000.IDotnetPackNameSets DotnetPackNameSets => T0215.Z000.DotnetPackNameSets.Instance;
         public static L0053.IEnumerableOperator EnumerableOperator => L0053.EnumerableOperator.Instance;
         public static new IFilePaths FilePaths => S0102.FilePaths.Instance;
-        public static F0082.IFileSystemOperator FileSystemOperator => F0082.FileSystemOperator.Instance;
+        public static IFileSystemOperator FileSystemOperator => S0102.FileSystemOperator.Instance;
         public static IIdentityNameOperator IdentityNameOperator => S0102.IdentityNameOperator.Instance;
         public static Internal.IIdentityNameOperator IdentityNameOperator_Internal => Internal.IdentityNameOperator.Instance;
         public static N001.IIdentityNameOperator IdentityNameOperator_N001 => N001.IdentityNameOperator.Instance;
         public static N002.IIdentityNameOperator IdentityNameOperator_N002 => N002.IdentityNameOperator.Instance;
         public static Z0030.IIdentityNames IdentityNames => Z0030.IdentityNames.Instance;
         public static Z0030.Z001.IIdentityNameSets IdentityNameSets => Z0030.Z001.IdentityNameSets.Instance;
+        public static L0062.F001.IIdentityStringOperator IdentityStringOperator => L0062.F001.IdentityStringOperator.Instance;
         public static F0000.IIntegerOperator IntegerOperator => F0000.IntegerOperator.Instance;
         public static T0162.Z000.IKindMarkers KindMarkers => T0162.Z000.KindMarkers.Instance;
         public static T0162.Z000.IKindMarkerSets KindMarkerSets => T0162.Z000.KindMarkerSets.Instance;
@@ -35,6 +36,8 @@ namespace R5T.S0102
         public static IOperator Operator => S0102.Operator.Instance;
         public static Z0030.IPathologicalIdentityNames PathologicalIdentityNames => Z0030.PathologicalIdentityNames.Instance;
         public static Z0030.IPathologicalIdentityNameSets PathologicalIdentityNameSets => Z0030.PathologicalIdentityNameSets.Instance;
+        public static F0115.IProjectPathOperator ProjectPathOperator => F0115.ProjectPathOperator.Instance;
+        public static IProjectPathsOperator ProjectPathsOperator => S0102.ProjectPathsOperator.Instance;
         public static L0053.IPropertyInfoOperator PropertyInfoOperator => L0053.PropertyInfoOperator.Instance;
         public static L0057.IReflectionOperator ReflectionOperator => L0057.ReflectionOperator.Instance;
         public static Z0022.IRepositoriesDirectoryPaths RepositoriesDirectoryPaths => Z0022.RepositoriesDirectoryPaths.Instance;
