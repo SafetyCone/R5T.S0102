@@ -238,7 +238,7 @@ namespace R5T.S0102
                         );
 
                     Instances.FileOperator.Write_Lines_Synchronous(
-                        outputFilePath.Value,
+                        outputFilePath,
                         lines);
                 });
 
@@ -369,13 +369,13 @@ namespace R5T.S0102
                             ;
 
                         Instances.FileOperator.Write_Lines_Synchronous(
-                            outputFilePath.Value,
+                            outputFilePath,
                             lines);
                     }
                     else
                     {
                         Instances.FileOperator.Write_Lines_Synchronous(
-                            outputFilePath.Value,
+                            outputFilePath,
                             "No unmatched identity names.");
                     }
                 });
@@ -440,7 +440,7 @@ namespace R5T.S0102
                     {
                         try
                         {
-                            var memberElements = await Instances.DocumentationFileOperator.Get_MemberElements(
+                            var memberElements = await Instances.DocumentationFileOperator.Get_MemberElements_Raw(
                                 documentationXmlFilePath,
                                 textOutput);
 
@@ -464,7 +464,7 @@ namespace R5T.S0102
                 ;
 
             Instances.FileOperator.Write_Lines_Synchronous(
-                outputFilePath.Value,
+                outputFilePath,
                 lines);
 
             Instances.NotepadPlusPlusOperator.Open(
@@ -518,7 +518,7 @@ namespace R5T.S0102
 
                     foreach (var documentationXmlFilePath in documentationXmlFilePaths)
                     {
-                        var memberElements = await Instances.DocumentationFileOperator.Get_MemberElements(
+                        var memberElements = await Instances.DocumentationFileOperator.Get_MemberElements_Raw(
                             documentationXmlFilePath,
                             textOutput);
 
@@ -537,7 +537,7 @@ namespace R5T.S0102
                 ;
 
             Instances.FileOperator.Write_Lines_Synchronous(
-                outputFilePath.Value,
+                outputFilePath,
                 lines);
 
             Instances.NotepadPlusPlusOperator.Open(

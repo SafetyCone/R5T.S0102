@@ -31,7 +31,7 @@ namespace R5T.S0102.N001
                 IKindMarkers.Namespace_Constant => this.Get_NamespaceIdentityName,
                 IKindMarkers.Property_Constant => this.Get_PropertyIdentityName,
                 IKindMarkers.Type_Constant => this.Get_TypeIdentityName,
-                _ => throw Instances.SwitchOperator.GetUnrecognizedSwitchValueException(kindMarkerCharacter.ToString(), "Kind-Marker"),
+                _ => throw Instances.SwitchOperator.Get_UnrecognizedSwitchValueException(kindMarkerCharacter.ToString(), "Kind-Marker"),
             };
 
             var output = func(internalIdentityName);
@@ -51,7 +51,7 @@ namespace R5T.S0102.N001
                 IKindMarkers.Namespace_Constant => this.Get_NamespaceIdentityName,
                 IKindMarkers.Property_Constant => this.Get_PropertyIdentityName,
                 IKindMarkers.Type_Constant => this.Get_TypeIdentityName,
-                _ => throw Instances.SwitchOperator.GetUnrecognizedSwitchValueException(kindMarkerCharacter.ToString(), "Kind-Marker"),
+                _ => throw Instances.SwitchOperator.Get_UnrecognizedSwitchValueException(kindMarkerCharacter.ToString(), "Kind-Marker"),
             };
 
             var output = func(identityName);

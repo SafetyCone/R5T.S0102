@@ -65,7 +65,7 @@ namespace R5T.S0102
                 );
 
             Instances.FileOperator.Write_Lines_Synchronous(
-                outputFilePath.Value,
+                outputFilePath,
                 lines);
         }
 
@@ -112,7 +112,7 @@ namespace R5T.S0102
                 ;
 
             Instances.FileOperator.Write_Lines_Synchronous(
-                outputFilePath.Value,
+                outputFilePath,
                 lines);
         }
     }
