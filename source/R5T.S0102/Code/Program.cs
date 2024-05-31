@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 
 namespace R5T.S0102
 {
+    /// <summary>
+    /// R5T.S0102 - Identity string scripts.
+    /// </summary>
     class Program
     {
         //void Test()
